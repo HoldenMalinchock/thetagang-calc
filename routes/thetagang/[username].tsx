@@ -1,6 +1,7 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import averageLoss from "../../utils/averageLoss.ts";
 import averageWin from "../../utils/averageWin.ts";
+import { Head } from "$fresh/runtime.ts";
 
 export const handler: Handlers = {
   async GET(_, ctx) {
@@ -12,7 +13,9 @@ export const handler: Handlers = {
       return ctx.render(null);
     }
     const profile = await resp.json();
-    return ctx.render({ profile, username });
+    const winAmount = averageWin(profile.data.trades);
+    const lossAmount = averageLoss(profile.data.trades);
+    return ctx.render({ profile, username, winAmount, lossAmount });
   },
 };
 
@@ -20,24 +23,44 @@ export default function Page({ data }: PageProps) {
   if (!data) {
     return <h1>User not found</h1>;
   }
-
   return (
     <div class="w-full h-screen flex flex-col items-center bg-[#1C1E25] text-[#DADADA] font-mono">
       <div class="p-6 mt-3 max-w-sm bg-white rounded-lg border-gray-200 shadow-xl dark:border-gray-700 bg-[#23252F]">
+        <Head>
+          <title>{data.username}</title>
+        </Head>
         <h1 class="my-1">User: {data.username}</h1>
         <table class="table-auto">
           <tbody>
             <tr>
-              <td>Average Win:</td>
-              <td>{averageWin(data.profile.data.trades)}</td>
+              <td class="pr-3">Average Win:</td>
+              <td
+                className={data.winAmount > 0
+                  ? "text-[#0FCE18]"
+                  : "text-[#FF0000]"}
+              >
+                ${data.winAmount}
+              </td>
             </tr>
             <tr>
-              <td>Average Loss:</td>
-              <td>{averageLoss(data.profile.data.trades)}</td>
+              <td class="pr-3">Average Loss:</td>
+              <td
+                className={data.lossAmount < data.winAmount
+                  ? "text-[#0FCE18]"
+                  : "text-[#FF0000]"}
+              >
+                ${data.lossAmount}
+              </td>
             </tr>
             <tr>
-              <td>Win Percentage:</td>
-              <td>{data.profile.data.metadata.winPercentage}%</td>
+              <td class="pr-3">Win Percentage:</td>
+              <td
+                className={data.profile.data.metadata.winPercentage > 50
+                  ? "text-[#0FCE18]"
+                  : "text-[#FF0000]"}
+              >
+                {data.profile.data.metadata.winPercentage}%
+              </td>
             </tr>
           </tbody>
         </table>

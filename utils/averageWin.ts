@@ -1,3 +1,4 @@
+// TODO we should use zod to validate the data we are getting back so we can use types for our app
 const averageWin = (trades: Array<any>) => {
   // Calculate average win amount
   let winAmounts = [];
@@ -14,8 +15,8 @@ const averageWin = (trades: Array<any>) => {
   }, 0);
 
   const averageWinAmount = winSum / winAmounts.length;
-  console.log("AVERAGE WIN: ", averageWinAmount);
-  return averageWinAmount;
+  console.log("AVERAGE WIN: ", Math.trunc(averageWinAmount));
+  return Math.trunc(averageWinAmount);
 };
 
 export default averageWin;

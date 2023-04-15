@@ -5,22 +5,24 @@
 import config from "./deno.json" assert { type: "json" };
 import * as $0 from "./routes/[name].tsx";
 import * as $1 from "./routes/api/joke.ts";
-import * as $2 from "./routes/example.tsx";
-import * as $3 from "./routes/index.tsx";
-import * as $4 from "./routes/oldIndex.tsx";
-import * as $5 from "./routes/search.tsx";
-import * as $6 from "./routes/thetagang/[username].tsx";
+import * as $2 from "./routes/chart.tsx";
+import * as $3 from "./routes/example.tsx";
+import * as $4 from "./routes/index.tsx";
+import * as $5 from "./routes/oldIndex.tsx";
+import * as $6 from "./routes/search.tsx";
+import * as $7 from "./routes/thetagang/[username].tsx";
 import * as $$0 from "./islands/Counter.tsx";
 
 const manifest = {
   routes: {
     "./routes/[name].tsx": $0,
     "./routes/api/joke.ts": $1,
-    "./routes/example.tsx": $2,
-    "./routes/index.tsx": $3,
-    "./routes/oldIndex.tsx": $4,
-    "./routes/search.tsx": $5,
-    "./routes/thetagang/[username].tsx": $6,
+    "./routes/chart.tsx": $2,
+    "./routes/example.tsx": $3,
+    "./routes/index.tsx": $4,
+    "./routes/oldIndex.tsx": $5,
+    "./routes/search.tsx": $6,
+    "./routes/thetagang/[username].tsx": $7,
   },
   islands: {
     "./islands/Counter.tsx": $$0,
