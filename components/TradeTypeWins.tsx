@@ -17,7 +17,7 @@ export function TradeTypeWins(props: { tradeWins: any }) {
               <tr>
                 <td class="pr-3">{tradeType}:</td>
                 <td
-                  className={tradeType[1].winPercentage >= 75
+                  className={tradeType[1].winPercentage >= 60
                     ? "text-[#0FCE18]"
                     : "text-[#FF0000]"}
                 >
