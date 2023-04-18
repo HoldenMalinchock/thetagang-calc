@@ -1,7 +1,9 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import averageLoss from "../../utils/averageLoss.ts";
 import averageWin from "../../utils/averageWin.ts";
+import getWinPercentageByTradeType from "../../utils/getWinPercentageByTradeType.ts";
 import { Head } from "$fresh/runtime.ts";
+import { TradeTypeWins } from "../../components/TradeTypeWins.tsx";
 
 export const handler: Handlers = {
   async GET(_, ctx) {
@@ -15,7 +17,8 @@ export const handler: Handlers = {
     const profile = await resp.json();
     const winAmount = averageWin(profile.data.trades);
     const lossAmount = averageLoss(profile.data.trades);
-    return ctx.render({ profile, username, winAmount, lossAmount });
+    const tradeWins = getWinPercentageByTradeType(profile.data.trades);
+    return ctx.render({ profile, username, winAmount, lossAmount, tradeWins });
   },
 };
 
@@ -65,6 +68,7 @@ export default function Page({ data }: PageProps) {
           </tbody>
         </table>
       </div>
+      <TradeTypeWins tradeWins={data.tradeWins} />
     </div>
   );
 }

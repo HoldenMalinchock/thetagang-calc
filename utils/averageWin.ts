@@ -15,7 +15,6 @@ const averageWin = (trades: Array<any>) => {
   }, 0);
 
   const averageWinAmount = winSum / winAmounts.length;
-  console.log("AVERAGE WIN: ", Math.trunc(averageWinAmount));
   return Math.trunc(averageWinAmount);
 };
 

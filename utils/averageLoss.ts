@@ -17,7 +17,6 @@ const averageLoss = (trades: Array<any>) => {
   }, 0);
 
   const averageLossAmount = lossSum / lossAmounts.length;
-  console.log("AVERAGE LOSS: ", Math.trunc(averageLossAmount));
   return Math.trunc(averageLossAmount);
 };
 
