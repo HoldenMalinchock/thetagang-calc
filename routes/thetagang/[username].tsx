@@ -4,10 +4,13 @@ import averageWin from "../../utils/averageWin.ts";
 import getWinPercentageByTradeType from "../../utils/getWinPercentageByTradeType.ts";
 import { Head } from "$fresh/runtime.ts";
 import { TradeTypeWins } from "../../components/TradeTypeWins.tsx";
+import { Card } from "../../components/Card.tsx";
+import { thetaGangResponsJsonSchema } from "../../zods/thetaGangResponsJsonSchema.ts";
 
 export const handler: Handlers = {
   async GET(_, ctx) {
     const { username } = ctx.params;
+    // We need to provde some zod schema to validate the response
     const resp = await fetch(
       `https://api.thetagang.com/trades?username=${username}`,
     );
@@ -15,6 +18,7 @@ export const handler: Handlers = {
       return ctx.render(null);
     }
     const profile = await resp.json();
+    thetaGangResponsJsonSchema.parse(profile);
     const winAmount = averageWin(profile.data.trades);
     const lossAmount = averageLoss(profile.data.trades);
     const tradeWins = getWinPercentageByTradeType(profile.data.trades);
@@ -28,7 +32,7 @@ export default function Page({ data }: PageProps) {
   }
   return (
     <div class="w-full h-screen flex flex-col items-center bg-[#1C1E25] text-[#DADADA] font-mono">
-      <div class="p-6 mt-3 max-w-sm bg-white rounded-lg border-gray-200 shadow-xl dark:border-gray-700 bg-[#23252F]">
+      <Card>
         <Head>
           <title>{data.username}</title>
         </Head>
@@ -67,7 +71,7 @@ export default function Page({ data }: PageProps) {
             </tr>
           </tbody>
         </table>
-      </div>
+      </Card>
       <TradeTypeWins tradeWins={data.tradeWins} />
     </div>
   );

@@ -30,7 +30,7 @@ export default function Page() {
             value={query}
             class="rounded-lg p-1 mr-2 font-mono"
           />
-          <Button class="m-2" type="submit">Search</Button>
+          <Button class="m-2" type="submit" disabled={false}>Search</Button>
         </form>
       </div>
       <div class="align-bottom flex justify-end">

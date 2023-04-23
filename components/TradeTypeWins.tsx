@@ -1,3 +1,5 @@
+import { Card } from "./Card.tsx";
+
 const sortTradeWinsByWinPercentage = (tradeWins: any) => {
   const sortedTradeWins = Object.entries(tradeWins).sort((a: any, b: any) => {
     return b[1].winPercentage - a[1].winPercentage;
@@ -7,7 +9,7 @@ const sortTradeWinsByWinPercentage = (tradeWins: any) => {
 
 export function TradeTypeWins(props: { tradeWins: any }) {
   return (
-    <div class="p-6 mt-3 max-w-sm bg-white rounded-lg border-gray-200 shadow-xl dark:border-gray-700 bg-[#23252F]">
+    <Card>
       <table class="table-auto">
         <tbody>
           {sortTradeWinsByWinPercentage(props.tradeWins).map(
@@ -28,6 +30,6 @@ export function TradeTypeWins(props: { tradeWins: any }) {
           )}
         </tbody>
       </table>
-    </div>
+    </Card>
   );
 }
