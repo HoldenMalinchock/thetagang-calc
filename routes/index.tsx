@@ -1,5 +1,6 @@
 import { Handlers } from "$fresh/server.ts";
 import { Button } from "../components/Button.tsx";
+import { Card } from "../components/Card.tsx";
 
 export const handler: Handlers = {
   GET(req, ctx) {
@@ -21,7 +22,7 @@ export default function Page() {
   const query = "";
   return (
     <div class="w-full h-screen flex flex-col items-center justify-center bg-[#1C1E25]">
-      <div class="p-6 max-w-sm bg-white rounded-lg border-gray-200 shadow-xl dark:border-gray-700 bg-[#23252F]">
+      <Card>
         <h1 class="text-[#DADADA] font-mono">Enter your username:</h1>
         <form>
           <input
@@ -32,7 +33,7 @@ export default function Page() {
           />
           <Button class="m-2" type="submit" disabled={false}>Search</Button>
         </form>
-      </div>
+      </Card>
       <div class="align-bottom flex justify-end">
         <a href="https://fresh.deno.dev">
           <img

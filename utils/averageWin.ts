@@ -1,5 +1,6 @@
-// TODO we should use zod to validate the data we are getting back so we can use types for our app
-const averageWin = (trades: Array<any>) => {
+import { TradesList } from "../zods/thetaGangResponseJsonSchema.ts";
+
+const averageWin = (trades: TradesList): number => {
   // Calculate average win amount
   let winAmounts = [];
   for (const trade of trades) {

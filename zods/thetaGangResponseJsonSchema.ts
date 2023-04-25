@@ -29,3 +29,7 @@ export const thetaGangResponseJsonSchema = z.object({
     }),
   }),
 });
+
+export type TradesList = z.infer<
+  typeof thetaGangResponseJsonSchema
+>["data"]["trades"];
