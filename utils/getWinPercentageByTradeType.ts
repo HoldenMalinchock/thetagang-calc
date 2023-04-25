@@ -1,5 +1,9 @@
 // TODO we should use zod to validate the data we are getting back so we can use types for our app
-const getWinPercentageByTradeType = (trades: Array<any>) => {
+const getWinPercentageByTradeType = (
+  trades: Array<any>,
+): {
+  [key: string]: { total: number; wins: number; winPercentage?: number };
+} => {
   // Calculate wins by the type
   // We will keep track of our values in a object with the key being the type of trade and the value being the number of wins
   // We will also keep track of the total number of trades by category

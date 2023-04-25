@@ -5,7 +5,16 @@ import getWinPercentageByTradeType from "../../utils/getWinPercentageByTradeType
 import { Head } from "$fresh/runtime.ts";
 import { TradeTypeWins } from "../../components/TradeTypeWins.tsx";
 import { Card } from "../../components/Card.tsx";
-import { thetaGangResponsJsonSchema } from "../../zods/thetaGangResponsJsonSchema.ts";
+import { thetaGangResponseJsonSchema } from "../../zods/thetaGangResponseJsonSchema.ts";
+import { z } from "https://deno.land/x/zod/mod.ts";
+
+type ThetaGangResponseJsonSchema = z.infer<
+  typeof thetaGangResponseJsonSchema
+>;
+
+interface TradeWinsResponse {
+  [key: string]: { total: number; wins: number; winPercentage?: number };
+}
 
 export const handler: Handlers = {
   async GET(_, ctx) {
@@ -18,7 +27,8 @@ export const handler: Handlers = {
       return ctx.render(null);
     }
     const profile = await resp.json();
-    thetaGangResponsJsonSchema.parse(profile);
+    // We need to do something if the parse fails
+    thetaGangResponseJsonSchema.parse(profile);
     const winAmount = averageWin(profile.data.trades);
     const lossAmount = averageLoss(profile.data.trades);
     const tradeWins = getWinPercentageByTradeType(profile.data.trades);
@@ -26,7 +36,17 @@ export const handler: Handlers = {
   },
 };
 
-export default function Page({ data }: PageProps) {
+export default function Page(
+  { data }: PageProps<
+    {
+      profile: ThetaGangResponseJsonSchema;
+      username: string;
+      winAmount: number;
+      lossAmount: number;
+      tradeWins: TradeWinsResponse;
+    }
+  >,
+) {
   if (!data) {
     return <h1>User not found</h1>;
   }
@@ -62,7 +82,8 @@ export default function Page({ data }: PageProps) {
             <tr>
               <td class="pr-3">Win Percentage:</td>
               <td
-                className={data.profile.data.metadata.winPercentage > 50
+                className={parseInt(data.profile.data.metadata.winPercentage) >
+                    50
                   ? "text-[#0FCE18]"
                   : "text-[#FF0000]"}
               >
