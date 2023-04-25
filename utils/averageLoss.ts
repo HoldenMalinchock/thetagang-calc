@@ -1,10 +1,11 @@
 import { TradesList } from "../zods/thetaGangResponseJsonSchema.ts";
 
-const averageLoss = (trades: TradesList): number => {
+// Makes sense to use a type here given that we have already parsed this data before it gets here
+const averageLoss = (listOfTrades: TradesList): number => {
   // Calculate average loss amount
   // Filter out the trade losses trade.win tells us if its a win or not, if its false its a loss and null is a trade that is still open or buying common stock
   let lossAmounts: number[] = [];
-  for (const trade of trades) {
+  for (const trade of listOfTrades) {
     if (!trade.win) {
       lossAmounts.push(Math.floor(trade.pl * -1 * 100) / 100);
     }
