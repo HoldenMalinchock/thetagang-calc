@@ -5,6 +5,7 @@ import getWinPercentageByTradeType from "../../utils/getWinPercentageByTradeType
 import { Head } from "$fresh/runtime.ts";
 import { TradeTypeWins } from "../../components/TradeTypeWins.tsx";
 import { Card } from "../../components/Card.tsx";
+import { Header } from "../../components/Header.tsx";
 import { thetaGangResponseJsonSchema } from "../../zods/thetaGangResponseJsonSchema.ts";
 import { z } from "https://deno.land/x/zod/mod.ts";
 
@@ -27,6 +28,7 @@ export const handler: Handlers = {
       return ctx.render(null);
     }
     const profile = await resp.json();
+    console.log(profile);
     // We need to do something if the parse fails
     thetaGangResponseJsonSchema.parse(profile);
     const winAmount = averageWin(profile.data.trades);
@@ -52,6 +54,7 @@ export default function Page(
   }
   return (
     <div class="w-full h-screen flex flex-col items-center bg-[#1C1E25] text-[#DADADA] font-mono">
+      <Header />
       <Card>
         <Head>
           <title>{data.username}</title>
