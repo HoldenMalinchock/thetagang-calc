@@ -7,7 +7,7 @@ import { TradeTypeWins } from "../../components/TradeTypeWins.tsx";
 import { Card } from "../../components/Card.tsx";
 import { Header } from "../../components/Header.tsx";
 import { thetaGangResponseJsonSchema } from "../../zods/thetaGangResponseJsonSchema.ts";
-import { z } from "https://deno.land/x/zod/mod.ts";
+import { z } from "https://deno.land/x/zod@v3.21.4/mod.ts";
 
 type ThetaGangResponseJsonSchema = z.infer<
   typeof thetaGangResponseJsonSchema
@@ -28,8 +28,7 @@ export const handler: Handlers = {
       return ctx.render(null);
     }
     const profile = await resp.json();
-    console.log(profile);
-    // We need to do something if the parse fails
+    // Todo We need to do something if the parse fails
     thetaGangResponseJsonSchema.parse(profile);
     const winAmount = averageWin(profile.data.trades);
     const lossAmount = averageLoss(profile.data.trades);
