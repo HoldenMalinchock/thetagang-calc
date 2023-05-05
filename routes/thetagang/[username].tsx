@@ -6,6 +6,7 @@ import { Head } from "$fresh/runtime.ts";
 import { TradeTypeWins } from "../../components/TradeTypeWins.tsx";
 import { Card } from "../../components/Card.tsx";
 import { Header } from "../../components/Header.tsx";
+import { WinRateCalc } from "../../components/WinRateCalc.tsx";
 import { thetaGangResponseJsonSchema } from "../../zods/thetaGangResponseJsonSchema.ts";
 import { z } from "https://deno.land/x/zod@v3.21.4/mod.ts";
 
@@ -96,6 +97,11 @@ export default function Page(
         </table>
       </Card>
       <TradeTypeWins tradeWins={data.tradeWins} />
+      <WinRateCalc
+        winAmount={data.winAmount}
+        lossAmount={data.lossAmount}
+        winPercentage={data.profile.data.metadata.winPercentage}
+      />
     </div>
   );
 }
