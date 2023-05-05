@@ -19,13 +19,26 @@ const determinePostiveEV = (
   // What win rate would I need to be profitable over 100 trades based on my current win/loss amounts
   // you could do a sort, start at 50% and go up or down
   let winRateFinder = 50;
-  let EV = 0;
-  while (EV < 1) {
-    EV = determineCurrentEV(winAmount, lossAmount, winRateFinder.toString());
-    if (EV < 1) {
-      winRateFinder++;
-    } else {
-      winRateFinder--;
+
+  if (winAmount < lossAmount) {
+    let EV = 0;
+    while (EV < 1) {
+      EV = determineCurrentEV(winAmount, lossAmount, winRateFinder.toString());
+      if (EV < 1) {
+        winRateFinder++;
+      } else {
+        winRateFinder--;
+      }
+    }
+  } else {
+    let EV = 2;
+    while (EV > 1) {
+      EV = determineCurrentEV(winAmount, lossAmount, winRateFinder.toString());
+      if (EV < 1) {
+        winRateFinder++;
+      } else {
+        winRateFinder--;
+      }
     }
   }
   return winRateFinder;
