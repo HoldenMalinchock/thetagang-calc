@@ -23,7 +23,9 @@ export default function Page() {
   return (
     <div class="w-full h-screen flex flex-col items-center justify-center bg-[#1C1E25]">
       <Card>
-        <h1 class="text-[#DADADA] font-mono">Enter your username:</h1>
+        <h1 class="text-[#DADADA] font-mono">
+          Enter your username:
+        </h1>
         <form>
           <input
             type="text"
