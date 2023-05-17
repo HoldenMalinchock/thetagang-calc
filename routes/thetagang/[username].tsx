@@ -7,11 +7,17 @@ import { TradeTypeWins } from "../../components/TradeTypeWins.tsx";
 import { Card } from "../../components/Card.tsx";
 import { Header } from "../../components/Header.tsx";
 import { WinRateCalc } from "../../components/WinRateCalc.tsx";
-import { thetaGangResponseJsonSchema } from "../../zods/thetaGangResponseJsonSchema.ts";
+import { thetaGangResponseV1JsonSchema } from "../../zods/thetaGangResponseJsonSchema.ts";
+import { thetaGangResponseV3JsonSchema } from "../../zods/thetaGangResponseJsonSchema.ts";
+
 import { z } from "https://deno.land/x/zod@v3.21.4/mod.ts";
 
-type ThetaGangResponseJsonSchema = z.infer<
-  typeof thetaGangResponseJsonSchema
+type ThetaGangResponseV1JsonSchema = z.infer<
+  typeof thetaGangResponseV1JsonSchema
+>;
+
+type ThetaGangResponseV3JsonSchema = z.infer<
+  typeof thetaGangResponseV3JsonSchema
 >;
 
 interface TradeWinsResponse {
@@ -22,18 +28,33 @@ export const handler: Handlers = {
   async GET(_, ctx) {
     const { username } = ctx.params;
     // We need to provde some zod schema to validate the response
-    const resp = await fetch(
+    // This api's trades are not accurate anymore
+    const respProfile = await fetch(
       `https://api.thetagang.com/trades?username=${username}`,
     );
-    if (resp.status === 400) {
+    if (respProfile.status === 400) {
       return ctx.render(null);
     }
-    const profile = await resp.json();
+
+    // The old API does not hold all trades, it seems to only update every so often.
+    // So we will make a second call to the new API to get our updated trades
+    const respTrades = await fetch(
+      `https://api3.thetagang.com/trades?username=${username}`,
+    );
+    if (respTrades.status === 400) {
+      return ctx.render(null);
+    }
+
+    const trades = await respTrades.json();
+    const profile = await respProfile.json();
+    console;
     // Todo We need to do something if the parse fails
-    thetaGangResponseJsonSchema.parse(profile);
-    const winAmount = averageWin(profile.data.trades);
-    const lossAmount = averageLoss(profile.data.trades);
-    const tradeWins = getWinPercentageByTradeType(profile.data.trades);
+    thetaGangResponseV1JsonSchema.parse(profile);
+    thetaGangResponseV3JsonSchema.parse(trades);
+
+    const winAmount = averageWin(trades.data);
+    const lossAmount = averageLoss(trades.data);
+    const tradeWins = getWinPercentageByTradeType(trades.data);
     return ctx.render({ profile, username, winAmount, lossAmount, tradeWins });
   },
 };
@@ -41,7 +62,7 @@ export const handler: Handlers = {
 export default function Page(
   { data }: PageProps<
     {
-      profile: ThetaGangResponseJsonSchema;
+      profile: ThetaGangResponseV1JsonSchema;
       username: string;
       winAmount: number;
       lossAmount: number;

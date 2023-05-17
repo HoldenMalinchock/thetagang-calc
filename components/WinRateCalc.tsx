@@ -49,14 +49,31 @@ export function WinRateCalc(
 ) {
   return (
     <Card>
-      <h1 class="my-1">
+      <h1
+        class="my-1"
+        className={determineCurrentEV(
+            props.winAmount,
+            props.lossAmount,
+            props.winPercentage,
+          ) >= 0
+          ? "text-[#0FCE18]"
+          : "text-[#FF0000]"}
+      >
         Current EV over 100 trades: ${determineCurrentEV(
           props.winAmount,
           props.lossAmount,
           props.winPercentage,
         )}
       </h1>
-      <h1 class="flex">
+      <h1
+        class="flex"
+        className={determinePostiveEV(
+            props.winAmount,
+            props.lossAmount,
+          ) >= 50
+          ? "text-[#0FCE18]"
+          : "text-[#FF0000]"}
+      >
         Required WR for profitability: {determinePostiveEV(
           props.winAmount,
           props.lossAmount,
