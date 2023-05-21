@@ -5,6 +5,7 @@ const averageWin = (trades: TradesList): number => {
   // Calculate average win amount
   const winAmounts = [];
   for (const trade of trades) {
+    if (trade === null) continue;
     if (trade.win) {
       winAmounts.push(parseInt(trade.profitLoss as string));
     }

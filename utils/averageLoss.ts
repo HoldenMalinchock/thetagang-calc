@@ -7,9 +7,16 @@ const averageLoss = (listOfTrades: TradesList): number => {
   // Filter out the trade losses trade.win tells us if its a win or not, if its false its a loss and null is a trade that is still open or buying common stock
   const lossAmounts: number[] = [];
   for (const trade of listOfTrades) {
+    if (trade === null) continue;
     if (!trade.win) {
       if (trade.profitLoss === null) continue;
-      lossAmounts.push(parseInt((trade.profitLoss as string).slice(1)));
+
+      // We have issues where this is sometimes a number
+      if (typeof trade.profitLoss === "number") {
+        lossAmounts.push(trade.profitLoss);
+      } else {
+        lossAmounts.push(parseInt((trade.profitLoss as string).slice(1)));
+      }
     }
   }
   const lossSum = lossAmounts.reduce((accumulator, value) => {

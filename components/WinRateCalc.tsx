@@ -70,7 +70,7 @@ export function WinRateCalc(
         className={determinePostiveEV(
             props.winAmount,
             props.lossAmount,
-          ) >= 50
+          ) <= 75
           ? "text-[#0FCE18]"
           : "text-[#FF0000]"}
       >

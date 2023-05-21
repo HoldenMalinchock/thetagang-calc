@@ -48,8 +48,10 @@ export const handler: Handlers = {
 
     const trades = await respTrades.json();
     const profile = await respProfile.json();
-    console;
-    // Todo We need to do something if the parse fails
+    trades.data = trades.data.filter((e: any) => {
+      return e !== undefined;
+    });
+    profile.data.trades = trades.data;
     thetaGangResponseV1JsonSchema.parse(profile);
     thetaGangResponseV3JsonSchema.parse(trades);
 
