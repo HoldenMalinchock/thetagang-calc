@@ -1,6 +1,7 @@
 import { Handlers } from "$fresh/server.ts";
 import { Button } from "../components/Button.tsx";
 import { Card } from "../components/Card.tsx";
+import { Header } from "../components/Header.tsx";
 
 export const handler: Handlers = {
   GET(req, ctx) {
@@ -21,9 +22,10 @@ export const handler: Handlers = {
 export default function Page() {
   const query = "";
   return (
-    <div class="w-full h-screen flex flex-col items-center justify-center bg-[#1C1E25]">
+    <div class="w-full h-screen flex flex-col items-center justify-between bg-[#1C1E25] font-mono">
+      <Header />
       <Card>
-        <h1 class="text-[#DADADA] font-mono">
+        <h1 class="text-[#DADADA]">
           Enter your username:
         </h1>
         <form>
@@ -31,7 +33,7 @@ export default function Page() {
             type="text"
             name="q"
             value={query}
-            class="rounded-lg p-1 mr-2 font-mono"
+            class="rounded-lg p-1 mr-2"
           />
           <Button class="m-2" type="submit" disabled={false}>Search</Button>
         </form>

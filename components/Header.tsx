@@ -6,7 +6,7 @@ export function Header() {
       <div class="rainfall w-full h-full absolute" />
       <nav class="w-11/12 h-24 max-w-5xl mx-auto flex items-center relative">
         <a href="/">
-          <div>Theta Gang Calculator</div>
+          <div class="text-[#DADADA]">Theta Gang Calculator</div>
         </a>
       </nav>
     </header>
