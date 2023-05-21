@@ -18,5 +18,7 @@ Planned Features:
 2. Success by stock breakdowns, Win rates on particular stocks
 3. Also we want a month by month chart, using closing dates as when we
    "made/lost" money
-4. Ignore some bad data, Joonie's page has hidden trades which should not break
-   everything
+4. ~~Ignore some bad data, Joonie's page has hidden trades which should not
+   break everything~~
+5. Yearly Profit Chart, using old API, seems to not update with 2023, update to
+   the new API
