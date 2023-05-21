@@ -16,3 +16,7 @@ Planned Features:
 
 1. Year to Year profit bar chart
 2. Success by stock breakdowns, Win rates on particular stocks
+3. Also we want a month by month chart, using closing dates as when we
+   "made/lost" money
+4. Ignore some bad data, Joonie's page has hidden trades which should not break
+   everything

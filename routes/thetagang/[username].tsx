@@ -9,6 +9,7 @@ import { Header } from "../../components/Header.tsx";
 import { WinRateCalc } from "../../components/WinRateCalc.tsx";
 import { thetaGangResponseV1JsonSchema } from "../../zods/thetaGangResponseJsonSchema.ts";
 import { thetaGangResponseV3JsonSchema } from "../../zods/thetaGangResponseJsonSchema.ts";
+import YearlyBarChart from "../../components/YearlyProfitChart.tsx";
 
 import { z } from "https://deno.land/x/zod@v3.21.4/mod.ts";
 
@@ -123,6 +124,7 @@ export default function Page(
         lossAmount={data.lossAmount}
         winPercentage={data.profile.data.metadata.winPercentage}
       />
+      <YearlyBarChart metadata={data.profile.data.metadata} />
     </div>
   );
 }
