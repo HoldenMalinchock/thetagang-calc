@@ -14,8 +14,8 @@ export function Header() {
         <a href="https://github.com/HoldenMalinchock/thetagang-calc">
           <img
             src="/github-mark.svg"
-            alt="Deno Logo"
-            class="h-14 w-14"
+            alt="Github Link"
+            class="h-7 w-14"
           />
         </a>
       </nav>
